@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f4f7f4" />
+  <meta name="description" content="An interactive student prototype exploring 3D land parcel mapping with ULPIN search and overlap area analysis." />
+  <title>3D ULPIN Mapping System · Search & Land Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#map" aria-label="3D ULPIN home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 36 36"><path d="M18 3 32 11v14L18 33 4 25V11L18 3Z"/><path d="m4 11 14 8 14-8M18 19v14M11 7l14 8v8"/></svg>
+        </span>
+        <span class="brand-copy">
+          <strong>ULPIN <span>in 3D</span></strong>
+          <small>Spatial land record & conflict explorer · <span class="brand-team">Created by <strong>Team G</strong></span></small>
+        </span>
+      </a>
+
+      <!-- Google Maps-style Search Bar -->
+      <div class="search-widget" id="searchWidget" role="search">
+        <div class="search-input-box">
+          <span class="search-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><path d="M8.5 3a5.5 5.5 0 0 1 4.38 8.83l4.65 4.64a.75.75 0 1 1-1.06 1.06l-4.64-4.65A5.5 5.5 0 1 1 8.5 3zm0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>
+          </span>
+          <input
+            type="search"
+            id="ulpinSearch"
+            class="search-input"
+            placeholder="Search by ULPIN (e.g. D-UL-2704-02117), house, floor..."
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search by ULPIN or property name"
+          />
+          <button class="search-clear-btn" id="searchClearBtn" type="button" aria-label="Clear search" title="Clear search" hidden>×</button>
+          <div class="search-key-hint" aria-hidden="true"><span>/</span></div>
+        </div>
+        <div class="search-dropdown" id="searchDropdown" role="listbox" hidden></div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="team-badge"><span class="team-dot"></span> Created by <strong>Team G</strong></div>
+        <button class="about-trigger" id="aboutBtn" type="button"><span class="about-icon">i</span> About this project</button>
+      </div>
+    </header>
+
+    <main id="map" class="main-area">
+      <section class="map-frame" aria-label="Interactive 3D neighborhood map">
+        <canvas id="mapCanvas" aria-label="Fictional neighborhood in interactive 3D. Drag to rotate, scroll to zoom, and select a parcel." tabindex="0"></canvas>
+        <div class="map-vignette" aria-hidden="true"></div>
+        
+        <div class="map-heading">
+          <div class="map-kicker"><span class="live-dot"></span> DEMO NEIGHBORHOOD <span class="kicker-sep">·</span> PUNE, INDIA</div>
+          <h1>Shantivan <span>Layout</span></h1>
+          <p>3D parcel mapping, floor-level sub-ULPINs & boundary overlap measurement.</p>
+          
+          <!-- Quick Search Chips -->
+          <div class="quick-chips" aria-label="Quick search shortcuts">
+            <span class="chip-label">Quick Jump:</span>
+            <button type="button" class="quick-chip chip-warning" data-ulpin="D-UL-2704-02117" title="Gulmohar House - 28.8 m² Boundary Overlap">
+              <span class="chip-dot-warning">!</span> Gulmohar (Overlap: 28.8 m²)
+            </button>
+            <button type="button" class="quick-chip" data-ulpin="D-UL-2704-04156" title="Lotus Enclave - 6 Floors + Basement">
+              <span>▤</span> Lotus Enclave (6F+B)
+            </button>
+            <button type="button" class="quick-chip" data-ulpin="D-UL-2704-01842" title="Neem Court - Residential">
+              <span>⌂</span> Neem Court
+            </button>
+            <button type="button" class="quick-chip" data-ulpin="D-UL-2704-03309" title="Mango Residency - Mixed-use">
+              <span>⌂</span> Mango Residency
+            </button>
+          </div>
+        </div>
+
+        <div class="layer-switch" role="group" aria-label="Map view layer">
+          <span class="switch-label">VIEW LAYER</span>
+          <div class="layer-options">
+            <button class="layer-button active" data-layer="surface" type="button" aria-pressed="true"><span class="layer-glyph surface-glyph">⌂</span>Surface</button>
+            <button class="layer-button" data-layer="floors" type="button" aria-pressed="false"><span class="layer-glyph floors-glyph">▤</span>Building floors</button>
+            <button class="layer-button" data-layer="utilities" type="button" aria-pressed="false"><span class="layer-glyph utilities-glyph">⌁</span>Underground</button>
+          </div>
+        </div>
+
+        <div class="map-actions" role="group" aria-label="Map controls">
+          <button class="icon-button" id="zoomIn" aria-label="Zoom in" title="Zoom in" type="button"><svg viewBox="0 0 20 20"><path d="M10 4v12M4 10h12"/></svg></button>
+          <button class="icon-button" id="zoomOut" aria-label="Zoom out" title="Zoom out" type="button"><svg viewBox="0 0 20 20"><path d="M4 10h12"/></svg></button>
+          <span class="action-divider"></span>
+          <button class="icon-button" id="resetView" aria-label="Reset map view" title="Reset view" type="button"><svg viewBox="0 0 20 20"><path d="M3.8 8A6.5 6.5 0 1 1 4 12M3.5 3.7V8h4.2"/></svg></button>
+        </div>
+
+        <div class="map-compass" aria-label="North direction"><span class="north">N</span><span class="compass-arrow">▲</span><span class="compass-ring"></span></div>
+        <div class="map-legend">
+          <span><i class="legend-building"></i> Buildings</span>
+          <span><i class="legend-parcel"></i> Parcel boundary</span>
+          <span><i class="legend-overlap"></i> Overlap zone (m²)</span>
+          <span><i class="legend-tree">●</i> Green space</span>
+        </div>
+        <div class="map-coordinates"><span class="coord-dot"></span> SAMPLE AREA <span class="coord-divider">/</span> 18.5204° N, 73.8567° E · 1 unit = 2.5m</div>
+        <div class="interaction-hint"><span class="drag-icon">↖↗</span> Drag to rotate <span>·</span> Shift + drag to pan <span>·</span> Scroll to zoom</div>
+        <button class="show-details" id="showDetails" type="button" hidden>Show property details <span>↗</span></button>
+
+        <aside class="property-panel" id="propertyPanel" aria-live="polite">
+          <div class="panel-topline">
+            <div class="selected-label"><span class="selection-dot"></span> SELECTED PROPERTY</div>
+            <div class="panel-top-actions">
+              <button class="unit-toggle-btn" id="unitToggleBtn" type="button" title="Toggle measurement units between Metric (m²) and Imperial (sq ft)">
+                <span class="unit-toggle-label active" data-unit="metric">m²</span>
+                <span class="unit-toggle-sep">/</span>
+                <span class="unit-toggle-label" data-unit="imperial">sq ft</span>
+              </button>
+              <button class="panel-close" id="closePanel" type="button" aria-label="Close property details">×</button>
+            </div>
+          </div>
+          <div id="propertyContent"></div>
+          <div class="panel-footnote"><span class="footnote-icon">i</span><span>Area conversions: 1 map unit = 2.5 m (8.2 ft). All data is illustrative for student exploration.</span></div>
+        </aside>
+      </section>
+
+      <section class="below-map">
+        <div class="story-intro">
+          <span class="section-overline">A NEW DIMENSION FOR LAND RECORDS & CONFLICT RESOLUTION</span>
+          <p>India’s 14-digit ULPIN (Unique Land Parcel Identification Number) concept pinpoints land parcels. This prototype extends it by providing <strong>search-by-ULPIN Google Maps navigation</strong>, <strong>floor-level 3D spatial units</strong>, and <strong>exact geometric overlap measurement in square meters and square feet</strong> to detect property boundary disputes before registration.</p>
+        </div>
+        <div class="story-callout">
+          <span class="callout-icon">↗</span>
+          <p><strong>Prototype with illustrative calculations.</strong> Overlap metrics are computed from sample spatial boundaries to demonstrate automated cadastral conflict detection.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Created by <strong>Team G</strong> <b>·</b> 3D ULPIN Search & Cadastral Overlap Analysis</span>
+        <span class="footer-right">Spatial Land Explorer <b>·</b> Team G <span>✳</span></span>
+      </footer>
+    </main>
+  </div>
+
+  <dialog class="about-dialog" id="aboutDialog">
+    <div class="dialog-head">
+      <div>
+        <span class="section-overline">CREATED BY TEAM G</span>
+        <h2>3D ULPIN & Overlap Analysis</h2>
+      </div>
+      <button id="closeAbout" class="panel-close" type="button" aria-label="Close">×</button>
+    </div>
+    <p>This prototype is created by <strong>Team G</strong> to demonstrate how India’s ULPIN (Bhu-Aadhaar) can be visualized in an interactive 3D spatial interface:</p>
+    <ul style="margin:0 0 16px;padding-left:20px;font-size:12px;line-height:1.7;color:#556658">
+      <li><strong>Instant ULPIN Search Engine:</strong> Search any 14-digit ULPIN, building name, or floor unit with instant map pan/zoom focus.</li>
+      <li><strong>Automated Boundary Overlap Measurement:</strong> Calculates exact encroached area in <strong>m²</strong> and <strong>sq ft</strong>, linear dimensions, and percentage of parcel affected.</li>
+      <li><strong>Vertical & Subsurface Spatial Units:</strong> Exploded views of floor sub-ULPINs (e.g. <code>F01</code>, <code>F02</code>) and underground utility lines.</li>
+    </ul>
+    <div class="dialog-notice">
+      <strong>Team G Project Notice</strong>
+      <span>Shantivan Layout and all ULPIN codes are fictional representations designed for academic research by Team G.</span>
+    </div>
+    <button class="dialog-done" id="doneAbout" type="button">Got it</button>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

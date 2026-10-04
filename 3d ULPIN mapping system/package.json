@@ -1,0 +1,11 @@
+{
+  "name": "3d-ulpin-mapping-system-demo",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Team G",
+  "description": "Local student prototype for illustrative 3D land parcel mapping created by Team G.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}

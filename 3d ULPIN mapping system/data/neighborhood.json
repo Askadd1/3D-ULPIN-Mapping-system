@@ -1,0 +1,109 @@
+{
+  "scale": {
+    "unitToMeters": 2.5,
+    "metersToFeet": 3.28084,
+    "unitToSqMeters": 6.25,
+    "unitToSqFeet": 67.2743
+  },
+  "bounds": { "width": 40, "depth": 34 },
+  "roads": [
+    { "x": 0, "z": -10, "width": 4.3, "length": 40 },
+    { "x": 0, "z": 8, "width": 3.2, "length": 40 },
+    { "x": -12.7, "z": 0, "width": 3.2, "length": 34 },
+    { "x": 11.8, "z": 0, "width": 3.2, "length": 34 }
+  ],
+  "properties": [
+    {
+      "id": "lot-a12", "name": "Neem Court", "kind": "Residential parcel", "demoId": "D-UL-2704-01842", "floors": 4,
+      "units": ["Apartment · 2nd floor", "Utility segment · water supply", "Roof terrace"],
+      "floorUnits": [
+        { "floor": 0, "subUlpin": "D-UL-2704-01842-F00", "label": "Ground floor · Lobby & parking" },
+        { "floor": 1, "subUlpin": "D-UL-2704-01842-F01", "label": "1st floor · Residential unit" },
+        { "floor": 2, "subUlpin": "D-UL-2704-01842-F02", "label": "2nd floor · Residential unit" },
+        { "floor": 3, "subUlpin": "D-UL-2704-01842-F03", "label": "3rd floor · Roof terrace" }
+      ],
+      "status": "clear", "x": -7.7, "z": -4.8, "w": 7.2, "d": 5.8, "h": 6.1, "color": "#e8b777", "roof": "#f0cb96", "accent": "#cf9560",
+      "parcel": { "x": -11.5, "z": -8.5, "w": 7.6, "d": 7.0 }, "label": "A-12"
+    },
+    {
+      "id": "lot-b08", "name": "Gulmohar House", "kind": "Residential parcel", "demoId": "D-UL-2704-02117", "floors": 3,
+      "units": ["Apartment · ground floor", "Apartment · 1st floor", "Apartment · 2nd floor"],
+      "floorUnits": [
+        { "floor": 0, "subUlpin": "D-UL-2704-02117-F00", "label": "Ground floor · Residential unit" },
+        { "floor": 1, "subUlpin": "D-UL-2704-02117-F01", "label": "1st floor · Residential unit" },
+        { "floor": 2, "subUlpin": "D-UL-2704-02117-F02", "label": "2nd floor · Residential unit" }
+      ],
+      "status": "overlap", "x": 5.6, "z": -4.3, "w": 6.2, "d": 6.6, "h": 5.0, "color": "#a9c3a8", "roof": "#d6ddc7", "accent": "#789b7b",
+      "parcel": { "x": 2.2, "z": -8.7, "w": 7.5, "d": 7.6 }, "label": "B-08",
+      "overlapData": {
+        "conflictingEntity": "Survey Lot B-09 (Eastern Cadastral Boundary)",
+        "overlapRect": { "x": 7.3, "z": -8.7, "w": 2.4, "d": 4.8 },
+        "overlapAreaM2": 28.8,
+        "overlapAreaSqFt": 310.0,
+        "overlapPercentage": 8.07,
+        "encroachmentWidthM": 6.0,
+        "encroachmentLengthM": 12.0,
+        "severity": "warning",
+        "description": "Lateral boundary intersection with adjacent Lot B-09 recorded survey line."
+      }
+    },
+    {
+      "id": "lot-c03", "name": "Mango Residency", "kind": "Mixed-use parcel", "demoId": "D-UL-2704-03309", "floors": 5,
+      "units": ["Shop · ground floor", "Apartment · 3rd floor", "Roof terrace"],
+      "floorUnits": [
+        { "floor": 0, "subUlpin": "D-UL-2704-03309-F00", "label": "Ground floor · Commercial shop" },
+        { "floor": 1, "subUlpin": "D-UL-2704-03309-F01", "label": "1st floor · Mixed-use office" },
+        { "floor": 2, "subUlpin": "D-UL-2704-03309-F02", "label": "2nd floor · Residential unit" },
+        { "floor": 3, "subUlpin": "D-UL-2704-03309-F03", "label": "3rd floor · Residential unit" },
+        { "floor": 4, "subUlpin": "D-UL-2704-03309-F04", "label": "4th floor · Roof terrace" }
+      ],
+      "status": "clear", "x": -7.4, "z": 4.5, "w": 7.4, "d": 6.1, "h": 7.4, "color": "#d4a79a", "roof": "#e6c7b8", "accent": "#bd887b",
+      "parcel": { "x": -11.3, "z": 1.0, "w": 7.6, "d": 7.2 }, "label": "C-03"
+    },
+    {
+      "id": "lot-d15", "name": "Lotus Enclave", "kind": "Residential parcel", "demoId": "D-UL-2704-04156", "floors": 6,
+      "units": ["Apartment · 1st floor", "Apartment · 4th floor", "Basement · parking"],
+      "floorUnits": [
+        { "floor": -1, "subUlpin": "D-UL-2704-04156-B01", "label": "Basement · Parking" },
+        { "floor": 0, "subUlpin": "D-UL-2704-04156-F00", "label": "Ground floor · Lobby & services" },
+        { "floor": 1, "subUlpin": "D-UL-2704-04156-F01", "label": "1st floor · Residential unit" },
+        { "floor": 2, "subUlpin": "D-UL-2704-04156-F02", "label": "2nd floor · Residential unit" },
+        { "floor": 3, "subUlpin": "D-UL-2704-04156-F03", "label": "3rd floor · Residential unit" },
+        { "floor": 4, "subUlpin": "D-UL-2704-04156-F04", "label": "4th floor · Residential unit" },
+        { "floor": 5, "subUlpin": "D-UL-2704-04156-F05", "label": "5th floor · Penthouse" }
+      ],
+      "status": "clear", "x": 5.4, "z": 4.7, "w": 6.5, "d": 5.7, "h": 8.1, "color": "#d5c496", "roof": "#e7ddc4", "accent": "#b8a77c",
+      "parcel": { "x": 2.0, "z": 1.0, "w": 7.5, "d": 7.0 }, "label": "D-15"
+    },
+    {
+      "id": "lot-e02", "name": "Community House", "kind": "Community parcel", "demoId": "D-UL-2704-05203", "floors": 2,
+      "units": ["Community hall · ground floor", "Meeting room · 1st floor"],
+      "floorUnits": [
+        { "floor": 0, "subUlpin": "D-UL-2704-05203-F00", "label": "Ground floor · Community hall" },
+        { "floor": 1, "subUlpin": "D-UL-2704-05203-F01", "label": "1st floor · Meeting room" }
+      ],
+      "status": "clear", "x": 14.3, "z": -1, "w": 5.2, "d": 5.4, "h": 4.0, "color": "#93b8b0", "roof": "#c4d8cc", "accent": "#739d95",
+      "parcel": { "x": 11.5, "z": -4.3, "w": 6.5, "d": 6.7 }, "label": "E-02"
+    },
+    {
+      "id": "lot-f06", "name": "Saffron Villas", "kind": "Residential parcel", "demoId": "D-UL-2704-06488", "floors": 2,
+      "units": ["Apartment · ground floor", "Garden terrace"],
+      "floorUnits": [
+        { "floor": 0, "subUlpin": "D-UL-2704-06488-F00", "label": "Ground floor · Residential unit" },
+        { "floor": 1, "subUlpin": "D-UL-2704-06488-F01", "label": "1st floor · Garden terrace" }
+      ],
+      "status": "clear", "x": 14, "z": 8.7, "w": 5.0, "d": 4.4, "h": 3.4, "color": "#dcb99a", "roof": "#eed6bc", "accent": "#bd9674",
+      "parcel": { "x": 11.3, "z": 6.0, "w": 6.4, "d": 5.6 }, "label": "F-06"
+    }
+  ],
+  "trees": [
+    [-16, -11, 1.1], [-2, -6, 0.8], [0.2, -5.3, 0.72], [10.4, -10.2, 1.1], [17, -7.2, 0.9],
+    [-15.7, -1.1, 0.9], [-15.6, 8.9, 1.05], [-2, 9.7, 0.95], [0.2, 4.4, 0.75], [10.1, 10.1, 0.9],
+    [18.1, 4.2, 1.05], [17.5, 12.1, 0.8], [-4, 12.2, 0.8]
+  ],
+  "utilities": [
+    { "id": "u-water", "name": "Water supply", "type": "Water main", "points": [[-18, -2], [-12.5, -2], [-12.5, 0], [0, 0], [0, 8], [18, 8]], "color": "#55a8cf", "width": 0.22 },
+    { "id": "u-power", "name": "Power distribution", "type": "Electrical conduit", "points": [[-16, -10], [0, -10], [0, -1], [12, -1], [12, 11], [18, 11]], "color": "#eda943", "width": 0.16 },
+    { "id": "u-drain", "name": "Stormwater drain", "type": "Drainage channel", "points": [[-18, 13], [-10, 13], [-10, 10], [8, 10], [8, 13], [18, 13]], "color": "#8c8cbd", "width": 0.16 }
+  ]
+}
